@@ -16,6 +16,11 @@ class Store:
         """
 
         if products is not None:
+            if not isinstance(products, list):
+                raise TypeError("products must be a list.")
+            for item in products:
+                if not isinstance(getattr(item, "name", None), str) or not isinstance(getattr(item, "price", None), (int, float)):
+                    raise TypeError("Each product must have a name (str) and price (int or float).")
             self.products = products
         else:
             self.products = []
@@ -26,8 +31,13 @@ class Store:
 
                 Args:
                     product (Product): The product to add.
+
+                Raises:
+                    TypeError: If the object is not a valid product.
         """
 
+        if not isinstance(getattr(product, "name", None), str) or not isinstance(getattr(product, "price", None), (int, float)):
+            raise TypeError("product must have a name (str) and price (int or float).")
         self.products.append(product)
 
     def remove_product(self, product):
@@ -38,9 +48,12 @@ class Store:
                    product (Product): The product to remove.
 
                Raises:
+                   TypeError: If the object is not a valid product.
                    ValueError: If the product is not found in the inventory.
         """
 
+        if not isinstance(getattr(product, "name", None), str) or not isinstance(getattr(product, "price", None), (int, float)):
+            raise TypeError("product must have a name (str) and price (int or float).")
         self.products.remove(product)
 
     def get_total_quantity(self):
