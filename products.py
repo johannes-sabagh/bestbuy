@@ -53,11 +53,11 @@ class Product:
                 Args:
                     quantity (int): The new stock quantity.
         """
-        self.quantity = quantity
         if not isinstance(quantity, (int, float)):
             raise ValueError("Quantity can only be a number")
         if quantity < 0:
             raise ValueError("Quantity cannot be negative.")
+        self.quantity = quantity
 
         # Automatically deactivate the product when it goes out of stock
         if self.quantity == 0:
@@ -89,12 +89,21 @@ class Product:
 
                 Returns:
                     float: The total cost for the purchased quantity.
+
+                Raises:
+                    ValueError: If quantity is not a number, not positive, or exceeds stock.
+                    Exception: If the product is inactive.
         """
-        self.quantity -= quantity
+        if not self.active:
+            raise Exception(f"{self.name} is not available.")
         if not isinstance(quantity, (int, float)):
             raise ValueError("Quantity can only be a number")
-        if quantity < 0:
-            raise ValueError("Quantity cannot be negative.")
+        if quantity <= 0:
+            raise ValueError("Quantity must be greater than zero.")
+        if quantity > self.quantity:
+            raise ValueError(f"Not enough stock for {self.name}.")
+
+        self.quantity -= quantity
 
         # Deactivate the product if it's now out of stock
         if self.quantity == 0:
