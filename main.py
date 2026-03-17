@@ -88,6 +88,23 @@ def start(best_buy):
             best_buy (Store): The store instance to operate on.
     """
 
+    def list_products():
+        print("---------")
+        best_buy.get_all_products()
+        print("---------")
+
+    def show_total():
+        print(f"Total of {best_buy.get_total_quantity()} items in store")
+
+    def place_order():
+        make_order(best_buy)
+
+    menu = {
+        1: list_products,
+        2: show_total,
+        3: place_order,
+    }
+
     while True:
         # Display the main menu options
         print("---------")
@@ -99,26 +116,11 @@ def start(best_buy):
         print("4. Quit")
         try:
             user_choice = int(input("Please choose a number: "))
-            if user_choice == 1:
-                # List all active products with their detail
-                print("---------")
-                best_buy.get_all_products()
-                print("---------")
-                input("Press enter to continue")
-
-            elif user_choice == 2:
-                # Display the total number of items across all products
-                print(f"Total of {best_buy.get_total_quantity()} items in store")
-                input("Press enter to continue")
-
-            elif user_choice == 3:
-                # Launch the order flow
-                make_order(best_buy)
-                input("Press enter to continue")
-
-            elif user_choice == 4:
-                # Exit the application
+            if user_choice == 4:
                 break
+            elif user_choice in menu:
+                menu[user_choice]()
+                input("Press enter to continue")
             else:
                 print("invalid input")
         except Exception as e:
