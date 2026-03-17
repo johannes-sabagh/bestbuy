@@ -123,7 +123,7 @@ def start(best_buy):
                 input("Press enter to continue")
             else:
                 print("invalid input")
-        except Exception as e:
+        except ValueError as e:
             print(f"Error: {e}")
 
 def main():
