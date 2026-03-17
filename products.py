@@ -21,10 +21,15 @@ class Product:
                 Raises:
                     ValueError: If name is empty, price is negative, or quantity is negative.
         """
+
         if not name or not name.strip():
             raise ValueError("Product name cannot be empty.")
+        if not isinstance(price, (int, float)):
+            raise ValueError("Price can only be a number")
         if price < 0:
             raise ValueError("Price cannot be negative.")
+        if not isinstance(quantity, (int, float)):
+            raise ValueError("Quantity can only be a number")
         if quantity < 0:
             raise ValueError("Quantity cannot be negative.")
 
@@ -49,6 +54,10 @@ class Product:
                     quantity (int): The new stock quantity.
         """
         self.quantity = quantity
+        if not isinstance(quantity, (int, float)):
+            raise ValueError("Quantity can only be a number")
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative.")
 
         # Automatically deactivate the product when it goes out of stock
         if self.quantity == 0:
@@ -82,6 +91,10 @@ class Product:
                     float: The total cost for the purchased quantity.
         """
         self.quantity -= quantity
+        if not isinstance(quantity, (int, float)):
+            raise ValueError("Quantity can only be a number")
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative.")
 
         # Deactivate the product if it's now out of stock
         if self.quantity == 0:

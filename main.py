@@ -118,7 +118,7 @@ def start(best_buy):
 
             elif user_choice == 4:
                 # Exit the application
-                input("Press enter to continue")
+                break
             else:
                 print("invalid input")
         except Exception as e:
