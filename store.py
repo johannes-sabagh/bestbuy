@@ -68,7 +68,7 @@ class Store:
 
         total = 0
         for product in self.products:
-            total += product.get_quantity(product)
+            total += product.get_quantity()
         return total
 
     def get_all_products(self):
@@ -115,11 +115,11 @@ class Store:
         for product, quantity in shopping_list:
             # Ensure the product is still available before purchasing
             if not product.is_active():
-                raise Exception(f"{product.name} is not available.")
+                raise ValueError (f"{product.name} is not available.")
 
             # Ensure there is enough stock to fulfill the requested quantity
             if quantity > product.get_quantity():
-                raise Exception(f"Not enough stock for {product.name}.")
+                raise ValueError (f"Not enough stock for {product.name}.")
             total_price += product.buy(quantity)
         return total_price
 

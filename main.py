@@ -58,8 +58,12 @@ def make_order(best_buy):
                 print("Amount must be greater than 0.")
                 continue
 
-            # Add the selected product and quantity to the shopping list
             selected_product = active_products[product_num - 1]
+
+            # Check requested amount does not exceed available stock
+            if amount > selected_product.get_quantity():
+                print(f"Not enough stock. Only {selected_product.get_quantity()} available.")
+                continue
             shopping_list.append((selected_product, amount))
             print("Product added to list!")
 
