@@ -54,6 +54,8 @@ class Store:
 
         if not isinstance(getattr(product, "name", None), str) or not isinstance(getattr(product, "price", None), (int, float)):
             raise TypeError("product must have a name (str) and price (int or float).")
+        if product not in self.products:
+            raise ValueError(f"{product.name} was not found in the store.")
         self.products.remove(product)
 
     def get_total_quantity(self):
